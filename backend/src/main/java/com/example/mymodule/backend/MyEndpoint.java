@@ -25,4 +25,13 @@ public class MyEndpoint {
         return response;
     }
 
+
+    @ApiMethod(name = "sayGoodbye")
+    public MyCard sayGoodbye( @Named("id") long id , @Named("name") String name){
+        MyCard response = new MyCard();
+        response.id = id;
+        response.name = name;
+        return response;
+    }
+
 }

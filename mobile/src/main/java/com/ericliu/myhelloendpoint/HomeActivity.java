@@ -7,19 +7,50 @@ import android.util.Pair;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+
+import com.example.mymodule.backend.myApi.model.MyCard;
+
+import de.greenrobot.event.EventBus;
 
 
 public class HomeActivity extends Activity {
+    EventBus bus = EventBus.getDefault();
+
+    TextView tvId;
+    TextView tvName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        tvId = (TextView)findViewById(R.id.tvId);
+        tvName = (TextView)findViewById(R.id.tvName);
+
     }
 
 
     public void onButtonClicked(View view){
         new EndpointsAsyncTask().execute(new Pair<Context, String>(this, "Manfred"));
+    }
+
+    public void onEventMainThread(MyCard card){
+        tvId.setText( String.valueOf(card.getId()));
+        tvName.setText(card.getName());
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        bus.register(this);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        bus.unregister(this);
     }
 
     @Override

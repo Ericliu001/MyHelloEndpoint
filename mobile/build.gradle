@@ -20,6 +20,7 @@ android {
 }
 
 dependencies {
+    compile 'de.greenrobot:eventbus:2.2.1'
     compile fileTree(dir: 'libs', include: ['*.jar'])
     wearApp project(':wear')
     compile 'com.google.android.gms:play-services:6.1.11'
